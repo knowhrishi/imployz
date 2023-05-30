@@ -57,8 +57,8 @@ google-resumable-media==2.5.0
 googleapis-common-protos==1.59.0
 gradio==3.32.0
 gradio-client==0.2.5
-grpcio==1.51.1
-grpcio-status==1.55.0
+grpcio
+grpcio-status
 h11==0.14.0
 hnswlib==0.7.0
 httpcore==0.16.3
