@@ -24,8 +24,8 @@ SECRET_KEY = "django-insecure-iaq^x+=_un!kg58+dx4l7fcpopy^!kz3kr-_++xcs_u8z(k!*v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','imployz.herokuapp.com']
-CSRF_TRUSTED_ORIGINS = ['http://knowhrishi-verbose-broccoli-wvwq7rrqq7p2555p-8000.preview.app.github.dev']
+ALLOWED_HOSTS = ['imployz.herokuapp.com', '127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['http://knowhrishi-verbose-broccoli-wvwq7rrqq7p2555p-8000.preview.app.github.dev']
 
 # Application definition
 
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -53,7 +55,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 
     
 ]
