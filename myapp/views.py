@@ -14,10 +14,11 @@ from langchain.chains.llm import LLMChain
 from django.urls import reverse
 import urllib.parse
 
-cred = credentials.Certificate("https://github.com/knowhrishi/imployz/blob/b33e3d7f4995acf1dd9315327cd92c54f8da251c/imployz-f8ee4-firebase-adminsdk-ei5aq-d9d56ea9fc.json")
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate(os.environ.get('FIREBASE_ADMIN_CREDENTIALS'))
 firebase_admin.initialize_app(cred)
-
 db = firestore.client()
+
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 # openai.api_key = "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"
 
