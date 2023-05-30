@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('myapp/', include('myapp.urls')),
+    path('favicon.ico', RedirectView.as_view(url='/')),
+
 ]
 # Add static and media file configurations for Heroku
 from django.conf import settings
