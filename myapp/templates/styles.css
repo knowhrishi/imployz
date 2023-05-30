@@ -1,0 +1,44 @@
+.user-card {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-age,
+.user-email {
+    margin: 5px 0;
+}
+
+.user-job {
+    color: #888;
+}
+
+.job-listing-form,
+.user-form {
+    margin-top: 20px;
+}
+
+.create-button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.create-button:hover {
+    background-color: #45a049;
+}
+
+input,
+textarea,
+select {
+    margin-bottom: 10px;
+    padding: 5px;
+}
