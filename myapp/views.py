@@ -15,12 +15,12 @@ from django.urls import reverse
 import config
 import urllib.parse
 
-cred = credentials.Certificate("//workspaces/imployz/imployz-f8ee4-firebase-adminsdk-ei5aq-d9d56ea9fc.json")
+cred = credentials.Certificate("/Users/knowhrishi/Documents/Code/Hackathons/HackBay23/resume_res/imployz-f8ee4-firebase-adminsdk-ei5aq-d9d56ea9fc.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-# openai.api_key = os.environ.get("OPENAI_API_KEY")
-openai.api_key = "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"
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+# openai.api_key = "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"
 
 
 def extract_text_from_pdf(file_path_or_bytes):
