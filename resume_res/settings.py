@@ -14,9 +14,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/knowhrishi/Documents/Code/Hackathons/HackBay23/resume_res/imployz-f8ee4-firebase-adminsdk-ei5aq-d9d56ea9fc.json"
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,7 +24,7 @@ SECRET_KEY = "django-insecure-iaq^x+=_un!kg58+dx4l7fcpopy^!kz3kr-_++xcs_u8z(k!*v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
 
 # Application definition
