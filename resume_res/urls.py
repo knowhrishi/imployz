@@ -21,3 +21,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('myapp/', include('myapp.urls')),
 ]
+# Add static and media file configurations for Heroku
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
