@@ -13,6 +13,8 @@ from langchain.document_loaders import PyPDFLoader
 from langchain.chains.llm import LLMChain
 from django.urls import reverse
 import config
+import urllib.parse
+
 cred = credentials.Certificate("/Users/knowhrishi/Documents/Code/Hackathons/HackBay23/resume_res/imployz-f8ee4-firebase-adminsdk-ei5aq-d9d56ea9fc.json")
 firebase_admin.initialize_app(cred)
 
@@ -145,6 +147,9 @@ def user_detail(request, user_id):
         # Now get the job title using the job_id
         job_listing_ref = db.collection('joblistings').document(job_id)
         job_listing = job_listing_ref.get()
+        resume = user_data.get('resume')
+        print(resume)
+        # print(f"Resume: {resume}")
         # If the job listing exists, return the user data and job title
         if job_listing.exists:
             job_title = job_listing.to_dict()['title']
@@ -186,6 +191,7 @@ def user_detail(request, user_id):
                 'comparison': results["similarity_score"],
                 'links': results["links"],
                 'overqualification_check': results["overqualification_check"],
+                'resume': resume,
             }
 
             return render(request, 'user_detail.html', context)
