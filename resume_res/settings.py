@@ -24,8 +24,8 @@ SECRET_KEY = "django-insecure-iaq^x+=_un!kg58+dx4l7fcpopy^!kz3kr-_++xcs_u8z(k!*v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
-
+ALLOWED_HOSTS = ['127.0.0.1','knowhrishi-verbose-broccoli-wvwq7rrqq7p2555p-8000.preview.app.github.dev', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['http://knowhrishi-verbose-broccoli-wvwq7rrqq7p2555p-8000.preview.app.github.dev']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "myapp",
     "resume_res",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 ROOT_URLCONF = "resume_res.urls"
@@ -122,6 +128,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-import os
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles build', 'static')
+# import os
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles build', 'static')
