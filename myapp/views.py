@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseServerError, HttpResponseNotFound
 from .models import JobListing, User
 from .forms import JobListingForm, UserForm
-import io, re
+import io, re, os
 import pdfplumber
 import openai
 import firebase_admin
@@ -12,12 +12,12 @@ from langchain import OpenAI, PromptTemplate
 from langchain.document_loaders import PyPDFLoader
 from langchain.chains.llm import LLMChain
 from django.urls import reverse
-
+import config
 cred = credentials.Certificate("/Users/knowhrishi/Documents/Code/Hackathons/HackBay23/resume_res/imployz-f8ee4-firebase-adminsdk-ei5aq-d9d56ea9fc.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-openai.api_key = "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"
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 
 
