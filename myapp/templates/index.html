@@ -58,7 +58,7 @@
 </head>
 <body>
     <div class="topnav">
-        <img src="resume_res/myapp/templates/logo.png" alt="IMPLOYZ" style="height: 40px; margin-right: 10px;">
+        <!-- <img src="/Users/knowhrishi/Documents/Code/Hackathons/HackBay23/resume_res/myapp/templates/logo.jpg" alt="IMPLOYZ" style="height: 40px; margin-right: 10px;"> -->
         <a class="tablinks" onclick="openCity(event, 'Applicants')">Applicants</a>
         <a class="tablinks" onclick="openCity(event, 'Add Joblisting')">Add Joblisting</a>
         <a class="tablinks" onclick="openCity(event, 'Add Applicant')">Add Applicant</a>
@@ -67,7 +67,7 @@
     <div id="Applicants" class="tabcontent">
         <h3>All Applicants</h3>
         <div class="container">
-          <h1>Materialistic Job Listings</h1>
+          <h1>Candidates</h1>
           {% for user in users %}
           <div class="card">
             <div class="card-content">
@@ -136,7 +136,10 @@
             <button class="btn waves-effect waves-light" type="submit" name="user_submit">Create User</button>
         </form>
     </div>
-
+    <div id="loading" style="display:none;">
+        <img src="resume_res/loading.gif" alt="Loading...">
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('select');
@@ -161,18 +164,34 @@
             document.getElementById('progressLabel{{ forloop.counter }}').innerText = '{{ user.similarity_score_inper|floatformat:0 }}';
             {% endfor %}
         });
-        
+        // By default, display the "Applicants" tab
+        document.getElementById("Applicants").style.display = "block";
+        document.querySelector('.tablinks').className += " active";
+
         function openCity(event, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
             document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+
+            // Show the loading GIF
+            document.getElementById('loading').style.display = 'block';
+
+            // After a delay, hide the loading GIF and show the tab
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById(tabName).style.display = "block";
+                event.currentTarget.className += " active";
+            }, 1000);
         }
-    
-        // By default, display the "Applicants" tab
-        document.getElementById("Applicants").style.display = "block";
+        
     </script>
 </body>
 </html>

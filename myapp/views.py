@@ -17,8 +17,8 @@ cred = credentials.Certificate("/Users/knowhrishi/Documents/Code/Hackathons/Hack
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-openai.api_key = os.environ.get("OPENAI_API_KEY")
-
+# openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = "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"
 
 
 def extract_text_from_pdf(file_path_or_bytes):
@@ -135,67 +135,64 @@ def index(request):
 
 
 def user_detail(request, user_id):
-    try:
-        user_ref = db.collection(u'users').document(user_id)
-        user = user_ref.get()
-        if user.exists:
-            user_data = user.to_dict()
-            job_id = user_data.get('j_id')
-            
-            # Now get the job title using the job_id
-            job_listing_ref = db.collection('joblistings').document(job_id)
-            job_listing = job_listing_ref.get()
-            # If the job listing exists, return the user data and job title
-            if job_listing.exists:
-                job_title = job_listing.to_dict()['title']
-                job_description = job_listing.to_dict()['description']
+  
+    user_ref = db.collection(u'users').document(user_id)
+    user = user_ref.get()
+    if user.exists:
+        user_data = user.to_dict()
+        job_id = user_data.get('j_id')
+        
+        # Now get the job title using the job_id
+        job_listing_ref = db.collection('joblistings').document(job_id)
+        job_listing = job_listing_ref.get()
+        # If the job listing exists, return the user data and job title
+        if job_listing.exists:
+            job_title = job_listing.to_dict()['title']
+            job_description = job_listing.to_dict()['description']
 
-                # Check if the user's document already has the analysis results
-                if 'resume_skills' in user_data and 'comparison' in user_data and 'links' in user_data and 'overqualification_check' in user_data:
-                    # Results are already in the database, just fetch them
-                    results = {
-                        'skills': user_data['resume_skills'],
-                        'similarity_score': user_data['comparison'],
-                        'links': user_data['links'],
-                        'overqualification_check': user_data['overqualification_check'],
-                        'similarity_score_inper': user_data['similarity_score_inper'],
-                    }
-                else:
-                    # Perform the analysis and save the results to the database
-                    resume_text = extract_text_from_pdf(user_data.get('resume'))
-                    if resume_text is not None:
-                        results = analyze_resume(resume_text, job_description, job_title)
-                        if "skills" in results and "similarity_score" in results and "links" in results and "overqualification_check" in results:
-                            user_ref.update({
-                                'resume_skills': results["skills"],
-                                'comparison': results["similarity_score"],
-                                'links': results["links"],
-                                'overqualification_check': results["overqualification_check"],
-                                'similarity_score_inper': results["similarity_score_inper"],
-                            })
-                        else:
-                            print("Incomplete results returned from analyze_resume")
-                            return HttpResponseServerError("Incomplete results returned from analyze_resume")
-                    else:
-                        print("Failed to extract text from the resume")
-                        return HttpResponseServerError("Failed to extract text from the resume.")
-
-                context = {
-                    'user': user_data,
-                    'resume_skills': results["skills"],
-                    'comparison': results["similarity_score"],
-                    'links': results["links"],
-                    'overqualification_check': results["overqualification_check"],
+            # Check if the user's document already has the analysis results
+            if 'resume_skills' in user_data and 'comparison' in user_data and 'links' in user_data and 'overqualification_check' in user_data:
+                # Results are already in the database, just fetch them
+                results = {
+                    'skills': user_data['resume_skills'],
+                    'similarity_score': user_data['comparison'],
+                    'links': user_data['links'],
+                    'overqualification_check': user_data['overqualification_check'],
+                    'similarity_score_inper': user_data['similarity_score_inper'],
                 }
-
-                return render(request, 'user_detail.html', context)
-
             else:
-                print(f"No job listing with id {job_id}")
-                return HttpResponseNotFound("Job listing not found.")
+                # Perform the analysis and save the results to the database
+                resume_text = extract_text_from_pdf(user_data.get('resume'))
+                if resume_text is not None:
+                    results = analyze_resume(resume_text, job_description, job_title)
+                    if "skills" in results and "similarity_score" in results and "links" in results and "overqualification_check" in results:
+                        user_ref.update({
+                            'resume_skills': results["skills"],
+                            'comparison': results["similarity_score"],
+                            'links': results["links"],
+                            'overqualification_check': results["overqualification_check"],
+                            'similarity_score_inper': results["similarity_score_inper"],
+                        })
+                    else:
+                        print("Incomplete results returned from analyze_resume")
+                        return HttpResponseServerError("Incomplete results returned from analyze_resume")
+                else:
+                    print("Failed to extract text from the resume")
+                    return HttpResponseServerError("Failed to extract text from the resume.")
+
+            context = {
+                'user': user_data,
+                'resume_skills': results["skills"],
+                'comparison': results["similarity_score"],
+                'links': results["links"],
+                'overqualification_check': results["overqualification_check"],
+            }
+
+            return render(request, 'user_detail.html', context)
+
         else:
-            print(f"No user with id {user_id}")
-            return HttpResponseNotFound("User not found.")
-    except Exception as e:
-        print(f"An error occurred in the user_detail view: {str(e)}")
-        return HttpResponseServerError("An internal server error occurred.")
+            print(f"No job listing with id {job_id}")
+            return HttpResponseNotFound("Job listing not found.")
+    else:
+        print(f"No user with id {user_id}")
+        return HttpResponseNotFound("User not found.")

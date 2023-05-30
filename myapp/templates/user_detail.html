@@ -4,53 +4,97 @@
     <meta charset="UTF-8">
     <title>User Detail</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         .card-panel {
             margin-top: 20px;
+        }
+
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .dashboard .card {
+            flex: 0 0 calc(50% - 10px);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .dashboard .card {
+                flex: 0 0 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="center-align">User Dashboard</h1>
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">{{ user.name }}</span>
-                <p><strong>Age:</strong> {{ user.age }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Job Listing:</strong> {{ user.job_listing }}</p>
+        <h1 class="center-align">Applicant Dashboard</h1>
+
+        <!-- Back Button -->
+        <button class="btn waves-effect waves-light" onclick="history.back()" data-aos="fade-up">Back</button>
+
+        <!-- Begin dashboard -->
+        <div class="dashboard">
+            <!-- User Card -->
+            <div class="card" data-aos="fade-up">
+                <div class="card-content">
+                    <span class="card-title">{{ user.name }}</span>
+                    <p><strong>Age:</strong> {{ user.age }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Job Listing:</strong> {{ user.job_listing }}</p>
+                </div>
+            </div>
+
+            <!-- Resume Skills Card -->
+            <div class="card teal lighten-2" data-aos="fade-up">
+                <div class="card-content">
+                    <span class="card-title">Resume Skills</span>
+                    <p>{{ resume_skills }}</p>
+                </div>
+            </div>
+            
+            <!-- Comparison Card -->
+            <div class="card orange lighten-2" data-aos="fade-up">
+                <div class="card-content">
+                    <span class="card-title">Comparison</span>
+                    <p>{{ comparison }}</p>
+                </div>
+            </div>
+
+            <!-- Links Card -->
+            <div class="card purple lighten-2" data-aos="fade-up">
+                <div class="card-content">
+                    <span class="card-title">Links</span>
+                    <p>{{ links }}</p>
+                </div>
+            </div>
+            
+            <!-- Overqualification Check Card -->
+            <div class="card green lighten-2" data-aos="fade-up">
+                <div class="card-content">
+                    <span class="card-title">Overqualification Check</span>
+                    <p>{{ overqualification_check }}</p>
+                </div>
+            </div>
+
+            <!-- Summarized Text Card -->
+            <div class="card blue lighten-2" data-aos="fade-up">
+                <div class="card-content">
+                    <span class="card-title">Summarized Text</span>
+                    <!-- <p>{{ summarized_text }}</p> -->
+                </div>
             </div>
         </div>
-        
-        <div class="card-panel teal lighten-2">
-            <h2>Resume Skills</h2>
-            <p>{{ resume_skills }}</p>
-        </div>
-        
-        <div class="card-panel orange lighten-2">
-            <h2>Comparison</h2>
-            <p>{{ comparison }}</p>
-        </div>
-        
-        <div class="card-panel purple lighten-2">
-            <h2>Links</h2>
-            <p>{{ links }}</p>
-        </div>
-        
-        <div class="card-panel green lighten-2">
-            <h2>Overqualification Check</h2>
-            <p>{{ overqualification_check }}</p>
-        </div>
-        
-        <div class="card-panel blue lighten-2">
-            <h2>Summarized Text</h2>
-            <!-- <p>{{ summarized_text }}</p> -->
-        </div>
+        <!-- End dashboard -->
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         M.AutoInit();
+        AOS.init();
     </script>
 </body>
 </html>
