@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-iaq^x+=_un!kg58+dx4l7fcpopy^!kz3kr-_++xcs_u8z(k!*v"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','knowhrishi-verbose-broccoli-wvwq7rrqq7p2555p-8000.preview.app.github.dev', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1','imployz.herokuapp.com']
 CSRF_TRUSTED_ORIGINS = ['http://knowhrishi-verbose-broccoli-wvwq7rrqq7p2555p-8000.preview.app.github.dev']
 
 # Application definition
