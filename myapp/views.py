@@ -12,7 +12,6 @@ from langchain import OpenAI, PromptTemplate
 from langchain.document_loaders import PyPDFLoader
 from langchain.chains.llm import LLMChain
 from django.urls import reverse
-import config
 import urllib.parse
 
 cred = credentials.Certificate("/Users/knowhrishi/Documents/Code/Hackathons/HackBay23/resume_res/imployz-f8ee4-firebase-adminsdk-ei5aq-d9d56ea9fc.json")
