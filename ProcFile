@@ -1,1 +1,3 @@
-web: gunicorn resume_res.wsgi --log-file -
+
+web: cd resume_res && gunicorn resume_res.wsgi
+
