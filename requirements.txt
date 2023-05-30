@@ -8,3 +8,4 @@ google-cloud-core
 google-api-core
 requests
 pdfminer.six
+gunicorn
