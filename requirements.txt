@@ -9,3 +9,5 @@ google-api-core
 requests
 pdfminer.six
 gunicorn
+whitenoise
+django-cors-headers
