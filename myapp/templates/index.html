@@ -8,11 +8,16 @@
         body {
           margin: 0;
           font-family: Arial, Helvetica, sans-serif;
+          background-color: #F3F3F3;
+          padding: 2rem;
         }
         
         .topnav {
           overflow: hidden;
           background-color: #333;
+          border-radius: 8px;
+          margin-bottom: 2rem;
+          padding: 0.5rem;
         }
         
         .topnav a {
@@ -22,22 +27,26 @@
           padding: 14px 16px;
           text-decoration: none;
           font-size: 17px;
+          border-radius: 4px;
+          transition: background-color 0.3s ease;
         }
         
         .topnav a:hover {
-          background-color: #ddd;
-          color: black;
+          background-color: #04AA6D;
+          color: white;
         }
         
         .topnav a.active {
           background-color: #04AA6D;
           color: white;
         }
+        
         .progress {
             height: 20px;
             background-color: #f0f0f0;
             border-radius: 10px;
             overflow: hidden;
+            margin-top: 1rem;
         }
         
         .progress .determinate {
@@ -51,6 +60,78 @@
             font-weight: bold;
             color: #4caf50;
             margin-top: 10px;
+        }
+
+        .tabcontent {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+            padding: 1rem;
+        }
+
+        .card-content {
+            padding: 1rem 2rem;
+        }
+
+        .input-field {
+            margin-bottom: 1.5rem;
+
+            .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 0.5s linear;
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    .overlay.visible {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    #loading {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        display: none;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 0.5s linear;
+        visibility: hidden;
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .overlay.visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #loading {
+        display: none;
+    }
         }
     </style>
     <meta charset="UTF-8">
@@ -139,15 +220,15 @@
             <button class="btn waves-effect waves-light" type="submit" name="user_submit">Create User</button>
         </form>
     </div>
-    <div id="loading" style="display:none;">
-        <img src="/workspaces/imployz/loading.giff" alt="Loading...">
+    <div class="overlay" id="loading">
+        <img src="{% static 'loading.gif' %}" alt="Loading...">
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('select');
             var instances = M.FormSelect.init(elems, {});
-            
+        
             {% for user in users %}
             var progress{{ forloop.counter }} = new ProgressBar.Line('#progressbar{{ forloop.counter }}', {
                 strokeWidth: 4,
@@ -166,7 +247,12 @@
             progress{{ forloop.counter }}.animate({{ user.similarity_score_inper }}/100); // Pass the percentage value
             document.getElementById('progressLabel{{ forloop.counter }}').innerText = '{{ user.similarity_score_inper|floatformat:0 }}';
             {% endfor %}
+        
+            // Show the loading GIF
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('Applicants').style.display = 'block';
         });
+        
         // By default, display the "Applicants" tab
         document.getElementById("Applicants").style.display = "block";
         document.querySelector('.tablinks').className += " active";
