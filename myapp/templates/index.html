@@ -115,8 +115,9 @@
     <div class="topnav">
         <!-- Tab links -->
         <a class="tablinks" onclick="openCity(event, 'Applicants')">Applicants</a>
-        <a class="tablinks" onclick="openCity(event, 'Add Joblisting')">Add Joblisting</a>
-        <a class="tablinks" onclick="openCity(event, 'Add Applicant')">Add Applicant</a>
+<a class="tablinks" onclick="openCity(event, 'Add Joblisting')">Add Joblisting</a>
+<a class="tablinks" onclick="openCity(event, 'Add Applicant')">Add Applicant</a>
+
     </div>
       
     <div id="Applicants" class="tabcontent">
@@ -220,6 +221,12 @@
         // By default, display the "Applicants" tab
         document.getElementById("Applicants").style.display = "block";
         document.querySelector('.tablinks').className += " active";
+        document.querySelectorAll('.tablinks').forEach(function(tabLink) {
+            tabLink.addEventListener('click', function(event) {
+                openCity(event, tabLink.dataset.tabname);
+            });
+        });
+        
 
         function openCity(event, tabName) {
             var i, tabcontent, tablinks;
